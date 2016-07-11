@@ -1685,13 +1685,13 @@ RWS = function (_EventEmitter) {(0, _inherits3.default)(RWS, _EventEmitter);
 
     {
       if (this.ws) {
-        this.ws.close();}} }]);return RWS;}(_events2.default);exports.default = RWS;
+        this.ws.close();}} }]);return RWS;}(_events2.default);
 
 
 
 
-global.RWS = RWS;exports.default = 
-RWS;
+// For browserify
+exports.default = RWS;global.RWS = RWS;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})

@@ -1,8 +1,8 @@
 {
   "name": "es6-rws",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ES6 Implementation of ReconnectingWebsocket",
-  "main": "rws.js",
+  "main": "rws.dist.js",
   "scripts": {
     "lint": "eslint rws.js --ignore-path .gitignore",
     "build:babel": "babel rws.js > rws.dist.babel.js",
@@ -10,6 +10,9 @@
     "build": "npm run build:babel && npm run build:browserify && rm *.babel.js",
     "prepublish": "npm run lint && npm run build"
   },
+  "files": [
+    "rws.dist.js"
+  ],
   "babel": {
     "compact": false,
     "ignore": "node_modules",

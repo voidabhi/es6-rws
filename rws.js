@@ -153,5 +153,5 @@ export default class RWS extends EventEmitter {
   }
 }
 
+// For browserify
 global.RWS = RWS;
-export default RWS;
