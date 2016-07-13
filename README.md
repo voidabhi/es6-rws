@@ -1,5 +1,5 @@
 # es6-rws
-ES6 Implementation of ReconnectingWebsocket
+ES6 Implementation of ReconnectingWebsocket with EventEmitter interface
 
 # Example
 
