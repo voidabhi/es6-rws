@@ -16,7 +16,7 @@ export default class RWS extends EventEmitter {
     this.url = url;
     this.protocols = protocols;
     for (const setting in settings) {
-      this[setting] = options[setting] || settings[setting];
+      this[setting] = setting in options ? options[setting] : settings[setting];
     }
 
     this.ws = null;
