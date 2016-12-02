@@ -51,7 +51,7 @@
   "bugs": {
     "url": "https://github.com/voidabhi/es6-rws/issues"
   },
-  "homepage": "https://github.com/voidabhi/es6-rws#readme",
+  "homepage": "https://github.com/voidabhi/es6-rws#README.md",
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-cli": "^6.10.1",
