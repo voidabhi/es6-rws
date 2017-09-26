@@ -1,7 +1,7 @@
 import EventEmitter from 'events';
 
 export default class RWS extends EventEmitter {
-  constructor(url, protocols, options) {
+  constructor(url, options = {}, protocols = []) {
     super();
     const settings = {
       debug: false,
@@ -15,7 +15,8 @@ export default class RWS extends EventEmitter {
     };
     this.url = url;
     this.protocols = protocols;
-    for (const setting in settings) {
+    const settingsKeys = Object.keys(settings);
+    for (const setting of settingsKeys) {
       this[setting] = setting in options ? options[setting] : settings[setting];
     }
 
@@ -62,12 +63,13 @@ export default class RWS extends EventEmitter {
 
   dbg(...args) {
     if (this.debug) {
-      console.debug(...args);
+      console.debug(...args); //eslint-disable-line
     }
   }
 
-  open(reconnectAttempt) {
-    this.ws = new WebSocket(this.url, this.protocols || []);
+  open(reconnectAttempt = false) {
+    let isReconnectAttempt = reconnectAttempt;
+    this.ws = new WebSocket(this.url, this.protocols);
     this.ws.binaryType = this.binaryType;
 
     // check for max reconnect attempts
@@ -76,7 +78,7 @@ export default class RWS extends EventEmitter {
         return;
       }
     } else {
-      this.emit('connecting');
+      this.emit('connecting', { isReconnect: isReconnectAttempt });
       this.reconnectAttempts = 0;
     }
 
@@ -95,9 +97,9 @@ export default class RWS extends EventEmitter {
       this.protocol = this.ws.protocol;
       this.readyState = WebSocket.OPEN;
       this.reconnectAttempts = 0;
-      event.isReconnect = reconnectAttempt;
+      event.isReconnect = isReconnectAttempt;
       this.emit('open', event);
-      reconnectAttempt = false;
+      isReconnectAttempt = false;
     };
 
     this.ws.onclose = (event) => {
@@ -107,12 +109,14 @@ export default class RWS extends EventEmitter {
         this.readyState = WebSocket.CLOSED;
         this.emit('close');
       } else {
-        this.emit('connecting', event);
-        if (!this.reconnectAttempt && !this.timeout) {
+        if (!this.reconnectAttempts && !this.timeout) {
           this.dbg('RWS', 'onclose', this.url);
           this.emit('close');
         }
-        const timeout = this.reconnectInterval * Math.pow(this.reconnectDecay, this.reconnectAttempts);
+        event.isReconnect = true;
+        this.emit('connecting', event);
+        const timeout = this.reconnectInterval * Math.pow(
+          this.reconnectDecay, this.reconnectAttempts);
         setTimeout(() => {
           this.reconnectAttempts++;
           this.open(true);
@@ -152,6 +156,3 @@ export default class RWS extends EventEmitter {
     }
   }
 }
-
-// For browserify
-global.RWS = RWS;

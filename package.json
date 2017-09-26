@@ -1,17 +1,17 @@
 {
   "name": "es6-rws",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "ES6 Implementation of ReconnectingWebsocket",
   "main": "rws.dist.js",
   "scripts": {
+    "clean": "rimraf rws.dist.js",
     "lint": "eslint rws.js --ignore-path .gitignore",
-    "build:babel": "babel rws.js > rws.dist.babel.js",
-    "build:browserify": "browserify rws.dist.babel.js > rws.dist.js",
-    "build": "npm run build:babel && npm run build:browserify && rm *.babel.js",
+    "build": "babel rws.js > rws.dist.js",
     "prepublish": "npm run lint && npm run build"
   },
   "files": [
-    "rws.dist.js"
+    "rws.dist.js",
+    "rws.js"
   ],
   "babel": {
     "compact": false,
@@ -53,15 +53,15 @@
   },
   "homepage": "https://github.com/voidabhi/es6-rws#README.md",
   "devDependencies": {
-    "babel": "^6.5.2",
     "babel-cli": "^6.10.1",
     "babel-eslint": "^6.1.0",
     "babel-plugin-transform-runtime": "^6.9.0",
-    "babel-preset-es2015": "^6.9.0",
     "babel-preset-es2015-loose": "^7.0.0",
+    "babel-preset-es2015": "^6.9.0",
     "babel-preset-stage-2": "^6.11.0",
-    "browserify": "^13.0.1",
+    "babel": "^6.5.2",
+    "eslint-config-strict": "^9.1.0",
     "eslint": "^2.13.1",
-    "eslint-config-strict": "^9.1.0"
+    "rimraf": "^2.5.2"
   }
 }
