@@ -61,7 +61,7 @@
     "babel-preset-stage-2": "^6.11.0",
     "babel": "^6.5.2",
     "eslint-config-strict": "^9.1.0",
-    "eslint": "^2.13.1",
+    "eslint": "^6.6.0",
     "rimraf": "^2.5.2"
   }
 }
