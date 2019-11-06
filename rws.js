@@ -109,7 +109,7 @@ export default class RWS extends EventEmitter {
         this.readyState = WebSocket.CLOSED;
         this.emit('close', event);
       } else {
-        if (!this.reconnectAttempts && !this.timeout) {
+        if (!this.reconnectAttempts && !this.timedOut) {
           this.dbg('RWS', 'onclose', this.url);
           this.emit('close', event);
         }
